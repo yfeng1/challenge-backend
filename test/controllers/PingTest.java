@@ -12,7 +12,7 @@ import static play.mvc.Http.Status.OK;
 import static play.test.Helpers.GET;
 import static play.test.Helpers.route;
 
-public class HomeControllerTest extends WithApplication {
+public class PingTest extends WithApplication {
 
     @Override
     protected Application provideApplication() {
@@ -20,10 +20,10 @@ public class HomeControllerTest extends WithApplication {
     }
 
     @Test
-    public void testIndex() {
+    public void ping_should_respond_http_200_for_health_check() {
         Http.RequestBuilder request = new Http.RequestBuilder()
                 .method(GET)
-                .uri("/");
+                .uri("/ping");
 
         Result result = route(app, request);
         assertEquals(OK, result.status());
