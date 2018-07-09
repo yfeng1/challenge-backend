@@ -1,0 +1,11 @@
+# Ignore all dotfiles...
+.*
+# except for .gitignore and some config files
+!.gitignore
+!.github
+!.github/*
+!.editorconfig
+!.pullapprove.yml
+
+target
+project/project
