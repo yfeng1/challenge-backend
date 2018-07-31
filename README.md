@@ -14,7 +14,7 @@ Running tests can be done by running `./sbt clean test` in the console, or doubl
 
 ## The challenge
 
-The BridgeClient service should be used to call the `List accounts` endpoint (see.: https://docs.bridgeapi.io/v2/reference#list-accounts) and compute the sum of all of the User's account, rounded to the upper thousand.
+The BridgeClient service should be used to call the `List accounts` endpoint (see.: https://docs.bridgeapi.io/v2018-06-15/reference#list-accounts) and compute the sum of all of the User's account, rounded to the upper thousand.
 
 The computed value should then be returned by `MyController` (hopefully its name will have changed by then).
 
