@@ -10,7 +10,7 @@ The project builds and runs in its initial state. You can run it by clicking on 
 
 Calling the health check endpoint `curl localhost:9000/ping` should then return `HTTP 200`.
 
-Running tests can be done by running `./sbt clean test` in the console, or double clicking the `test` package and click on `Run all tests`.
+Running tests can be done by running `./sbt test` in the console, or by double clicking the `test` package and choosing `Run all tests`.
 
 ## The challenge
 
