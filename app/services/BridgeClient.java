@@ -15,7 +15,7 @@ import static play.mvc.Http.Status.OK;
 /**
  * Bridge is Bankin's SaaS API. This service is where the calls to the API should be implemented.
  *
- * The "doSomething" method doesn't actually do anything yet and needs to be modified to fit the exercice's needs.
+ * The "listAccounts" method doesn't actually do anything yet and needs to be modified to fit the exercice's needs.
  */
 public class BridgeClient {
 
@@ -26,7 +26,7 @@ public class BridgeClient {
     private final String apiClientSecret;
 
     // these are hardcoded for simplicity's sake
-    private static final String USER_EMAIL = "user1@mail.com";
+    private static final String USER_EMAIL = "user5@mail.com";
     private static final String USER_PASSWORD = "a!Strongp#assword1";
 
     @Inject
@@ -60,22 +60,24 @@ public class BridgeClient {
                 .join();
     }
 
-    public double doSomething() {
+    public double listAccounts() {
         Optional<AuthenticateResponse> maybeAccessToken = authenticateUser(USER_EMAIL, USER_PASSWORD);
 
-        wsClient.url(baseUrl + "")
+        // 'https://sync.bankin.com/v2/accounts?limit=10&client_id=MY_CLIENT_ID&client_secret=MY_CLIENT_SECRET
+        maybeAccessToken.ifPresent(authenticateResponse -> wsClient.url(baseUrl + "/accounts")
                 .addHeader("Bankin-Version", apiVersion)
-                .addHeader("Authorization", "Bearer ")
-                .addQueryParameter("myparam", "myvalue")
+                .addHeader("Authorization", "Bearer " + authenticateResponse.accessToken)
+                .addQueryParameter("client_id", apiClientId)
+                .addQueryParameter("client_secret", apiClientSecret)
                 .get()
                 .thenApply(response -> {
+                    System.out.println(response.getStatusText());
                     GetAccountsResponse getAccountsResponse = Json.fromJson(response.asJson(), GetAccountsResponse.class);
 
-                    return 0d;
+                    return getAccountsResponse.accounts.size();
                 })
                 .toCompletableFuture()
-                .join();
-
+                .join());
         return 0d;
     }
 }
